@@ -54,3 +54,17 @@ jobs:
         with:
           name: backend-logs
           path: week5/backend/package.json
+  notify:
+    runs-on: ubuntu-latest
+    needs: [frontend, backend]
+    steps:
+      - name: Send Slack notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_MESSAGE: |
+            ✅ CI/CD pipeline finished.
+            Frontend & Backend tested successfully.
+            Status: ${{ job.status }}
+
