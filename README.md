@@ -20,11 +20,44 @@ It includes:
 
 ---
 
-## 🖼️ Pipeline Flowchart
+## 🖼️ Pipeline Flowchart (Visual)
+
 ![Pipeline Flowchart](flowchart.png)
 
 ---
 
-## 📝 Reflection
-See [REFLECTION.md](REFLECTION.md) for answers to the reflection questions.
+## 📌 Pipeline Overview (Textual)
+
+```plaintext
+Developer Push / Pull Request
+        │
+        ▼
+GitHub Actions Workflow Triggered
+        │
+        ▼
++-------------------+
+|  Frontend Job     |
+| - Checkout code   |
+| - Setup Node.js   |
+| - npm install     |
+| - npm test        |
++-------------------+
+        │
+        │ (runs in parallel)
+        ▼
++-------------------+
+|  Backend Job      |
+| - Checkout code   |
+| - Setup Node.js   |
+| - npm install     |
+| - npm test        |
++-------------------+
+        │
+        └── Both jobs complete ───►
+                                ▼
++----------------------+
+|  Notify Job (Slack)  |
+| - Status: Success/Fail |
+| - Send message       |
++----------------------+
 
